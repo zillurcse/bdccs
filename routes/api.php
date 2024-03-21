@@ -17,3 +17,6 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::get('mipim', [\App\Http\Controllers\MipimDataController::class, 'index']);
+Route::post('mipim', [\App\Http\Controllers\MipimDataController::class, 'store']);

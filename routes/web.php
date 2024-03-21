@@ -20,6 +20,8 @@ Route::get('/', function () {
     return redirect()->route('login');
 });
 
+Route::get('mipim', [\App\Http\Controllers\MipimDataController::class, 'index']);
+
 Route::get('dashboard', [AdminController::class, 'index'])->middleware(['auth'])->name('dashboard');
 Route::get('search-bdcs-code', function (){
 

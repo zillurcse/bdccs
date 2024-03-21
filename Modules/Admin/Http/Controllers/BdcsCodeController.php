@@ -177,6 +177,7 @@ class BdcsCodeController extends Controller
 
 
             $input['created_by'] = Auth::id();
+            $input['is_approved'] = 'approved';
             BdcsCode::create($input);
 
             DB::commit();

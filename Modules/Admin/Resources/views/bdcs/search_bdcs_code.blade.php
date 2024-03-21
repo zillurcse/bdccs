@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Search Bar Design</title>
+    <title>Search Seller</title>
     <style>
         /* Container for search and results */
         body {
@@ -85,6 +85,33 @@
         .result-item p {
             margin-bottom: 10px;
         }
+
+        /* Responsive styles */
+        @media (max-width: 768px) {
+            .search-container {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .search-box {
+                width: 100%;
+                max-width: 100%;
+                margin-bottom: 10px;
+            }
+
+            .search-button {
+                margin-left: 0;
+            }
+
+            #results-container {
+                max-width: 100%;
+            }
+
+            .result-item {
+                margin-bottom: 10px;
+                padding: 25px;
+            }
+        }
     </style>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
@@ -96,14 +123,14 @@
     </div>
     <div id="results-container">
         <!-- Sample search results -->
-{{--        <div class="result-item">--}}
-{{--            <h4>Result 1</h4>--}}
-{{--            <p>Description of result 1.</p>--}}
-{{--        </div>--}}
-{{--        <div class="result-item">--}}
-{{--            <h4>Result 2</h4>--}}
-{{--            <p>Description of result 2.</p>--}}
-{{--        </div>--}}
+        {{--        <div class="result-item">--}}
+        {{--            <h4>Result 1</h4>--}}
+        {{--            <p>Description of result 1.</p>--}}
+        {{--        </div>--}}
+        {{--        <div class="result-item">--}}
+        {{--            <h4>Result 2</h4>--}}
+        {{--            <p>Description of result 2.</p>--}}
+        {{--        </div>--}}
         <!-- Add more result items here -->
     </div>
 </div>
@@ -137,7 +164,7 @@
                     const div = document.createElement('div');
                     div.classList.add('result-item');
                     div.innerHTML = `
-                        <h4>Code: ${response.data.code}</h4>
+                        <h4>Code: BDCS - ${response.data.code}</h4>
                         <p>Seller Name: ${response.data.seller_name}</p>
                         <p>Business Type: ${response.data.business_type}</p>
                         <p>Seller Phone: ${response.data.seller_phone}</p>
@@ -145,13 +172,17 @@
                         <p>Issue Date: ${response.data.issue_date}</p>
                         <p>Expire Date: ${response.data.expire_date}</p>
                         <p style="color: ${response.data.status === 'active' ? 'green' : 'red'}">Register Status: ${response.data.status}</p>
-                        <p style="color: ${response.data.is_approved === 'active' ? 'green' : 'red'}">Approved Status: ${response.data.is_approved}</p>
-                         <p><img src="${response.data.seller_photo}" alt="Seller Photo" style="border-radius: 10%; height: 120px; width: 120px" /></p>
+                        <p style="color: ${response.data.is_approved === 'approved' ? 'green' : 'red'}">Approved Status: ${response.data.is_approved}</p>
+                         <p><img src="${response.data.seller_photo || 'https://law.thavertech.com/demo/img/male13.jpg'}" alt="Seller Photo"
+            style="border-radius: 10%; height: 120px; width: 120px" /></p>
 
                         <!-- Add more fields as needed -->
                     `;
 
                     resultsContainer.appendChild(div);
+
+                    resultsContainer.appendChild(printButton);
+
                 } else {
                     resultsContainer.innerHTML = '<p>No results found.</p>';
                 }
